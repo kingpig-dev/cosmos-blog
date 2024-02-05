@@ -8,6 +8,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "blog/blog/params.proto";
 import "blog/blog/post.proto";
+import "blog/blog/loan.proto";
 
 option go_package = "blog/x/blog/types";
 
@@ -27,6 +28,16 @@ service Query {
   }
   rpc PostAll (QueryAllPostRequest) returns (QueryAllPostResponse) {
     option (google.api.http).get = "/blog/blog/post";
+  
+  }
+  
+  // Queries a list of Loan items.
+  rpc Loan    (QueryGetLoanRequest) returns (QueryGetLoanResponse) {
+    option (google.api.http).get = "/blog/blog/loan/{id}";
+  
+  }
+  rpc LoanAll (QueryAllLoanRequest) returns (QueryAllLoanResponse) {
+    option (google.api.http).get = "/blog/blog/loan";
   
   }
 }
@@ -54,6 +65,23 @@ message QueryAllPostRequest {
 
 message QueryAllPostResponse {
   repeated Post                                   Post       = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetLoanRequest {
+  uint64 id = 1;
+}
+
+message QueryGetLoanResponse {
+  Loan Loan = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllLoanRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllLoanResponse {
+  repeated Loan                                   Loan       = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

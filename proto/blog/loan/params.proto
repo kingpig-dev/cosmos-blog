@@ -1,0 +1,15 @@
+syntax = "proto3";
+package blog.loan;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "blog/x/loan/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "blog/x/loan/Params";
+  option (gogoproto.equal) = true;
+
+  
+}

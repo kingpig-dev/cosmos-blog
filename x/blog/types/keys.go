@@ -23,3 +23,8 @@ const (
 	PostKey      = "Post/value/"
 	PostCountKey = "Post/count/"
 )
+
+const (
+	LoanKey      = "Loan/value/"
+	LoanCountKey = "Loan/count/"
+)
