@@ -6,6 +6,7 @@ import "amino/amino.proto";
 import "gogoproto/gogo.proto";
 import "blog/blog/params.proto";
 import "blog/blog/post.proto";
+import "blog/blog/loan.proto";
 
 option go_package = "blog/x/blog/types";
 
@@ -16,5 +17,7 @@ message GenesisState {
            Params params    = 1 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
   repeated Post   postList  = 2 [(gogoproto.nullable) = false] ;
            uint64 postCount = 3;
+  repeated Loan   loanList  = 4 [(gogoproto.nullable) = false] ;
+           uint64 loanCount = 5;
 }
 

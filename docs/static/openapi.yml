@@ -4,6 +4,198 @@ info:
   name: ''
   description: ''
 paths:
+  /blog/blog/loan:
+    get:
+      operationId: BlogBlogQuery_LoanAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Loan:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    amount:
+                      type: string
+                    fee:
+                      type: string
+                    collateral:
+                      type: string
+                    deadline:
+                      type: string
+                    state:
+                      type: string
+                    borrower:
+                      type: string
+                    lender:
+                      type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    description: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently. It will be empty if
+                      there are no more results.
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /blog/blog/loan/{id}:
+    get:
+      summary: Queries a list of Loan items.
+      operationId: BlogBlogQuery_Loan
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Loan:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  amount:
+                    type: string
+                  fee:
+                    type: string
+                  collateral:
+                    type: string
+                  deadline:
+                    type: string
+                  state:
+                    type: string
+                  borrower:
+                    type: string
+                  lender:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /blog/blog/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -396,6 +588,62 @@ paths:
                 type: string
               body:
                 type: string
+      tags:
+        - Msg
+  /blog.loan.Msg/UpdateParams:
+    post:
+      summary: |-
+        UpdateParams defines a (governance) operation for updating the module
+        parameters. The authority defaults to the x/gov module account.
+      operationId: BlogLoanMsg_UpdateParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            description: >-
+              MsgUpdateParamsResponse defines the response structure for
+              executing a
+
+              MsgUpdateParams message.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          description: MsgUpdateParams is the Msg/UpdateParams request type.
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              authority:
+                type: string
+                description: >-
+                  authority is the address that controls the module (defaults to
+                  x/gov unless overwritten).
+              params:
+                description: |-
+                  params defines the module parameters to update.
+
+                  NOTE: All parameters must be supplied.
+                type: object
+            description: MsgUpdateParams is the Msg/UpdateParams request type.
       tags:
         - Msg
   /cosmos.auth.v1beta1.Msg/UpdateParams:
@@ -19935,6 +20183,26 @@ definitions:
                   "@type": "type.googleapis.com/google.protobuf.Duration",
                   "value": "1.212s"
                 }
+  blog.blog.Loan:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      amount:
+        type: string
+      fee:
+        type: string
+      collateral:
+        type: string
+      deadline:
+        type: string
+      state:
+        type: string
+      borrower:
+        type: string
+      lender:
+        type: string
   blog.blog.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -19950,6 +20218,57 @@ definitions:
         type: string
       creator:
         type: string
+  blog.blog.QueryAllLoanResponse:
+    type: object
+    properties:
+      Loan:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            amount:
+              type: string
+            fee:
+              type: string
+            collateral:
+              type: string
+            deadline:
+              type: string
+            state:
+              type: string
+            borrower:
+              type: string
+            lender:
+              type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            description: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently. It will be empty if
+              there are no more results.
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   blog.blog.QueryAllPostResponse:
     type: object
     properties:
@@ -19993,6 +20312,29 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  blog.blog.QueryGetLoanResponse:
+    type: object
+    properties:
+      Loan:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          amount:
+            type: string
+          fee:
+            type: string
+          collateral:
+            type: string
+          deadline:
+            type: string
+          state:
+            type: string
+          borrower:
+            type: string
+          lender:
+            type: string
   blog.blog.QueryGetPostResponse:
     type: object
     properties:
@@ -20148,6 +20490,29 @@ definitions:
         type: string
   blog.blog.MsgUpdatePostResponse:
     type: object
+  blog.loan.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: |-
+          params defines the module parameters to update.
+
+          NOTE: All parameters must be supplied.
+        type: object
+    description: MsgUpdateParams is the Msg/UpdateParams request type.
+  blog.loan.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
+  blog.loan.Params:
+    type: object
+    description: Params defines the parameters for the module.
   cosmos.auth.v1beta1.MsgUpdateParams:
     type: object
     properties:
