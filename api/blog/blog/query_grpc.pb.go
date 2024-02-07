@@ -19,11 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName  = "/blog.blog.Query/Params"
-	Query_Post_FullMethodName    = "/blog.blog.Query/Post"
-	Query_PostAll_FullMethodName = "/blog.blog.Query/PostAll"
-	Query_Loan_FullMethodName    = "/blog.blog.Query/Loan"
-	Query_LoanAll_FullMethodName = "/blog.blog.Query/LoanAll"
+	Query_Params_FullMethodName          = "/blog.blog.Query/Params"
+	Query_Post_FullMethodName            = "/blog.blog.Query/Post"
+	Query_PostAll_FullMethodName         = "/blog.blog.Query/PostAll"
+	Query_Loan_FullMethodName            = "/blog.blog.Query/Loan"
+	Query_LoanAll_FullMethodName         = "/blog.blog.Query/LoanAll"
+	Query_SentPost_FullMethodName        = "/blog.blog.Query/SentPost"
+	Query_SentPostAll_FullMethodName     = "/blog.blog.Query/SentPostAll"
+	Query_TimedoutPost_FullMethodName    = "/blog.blog.Query/TimedoutPost"
+	Query_TimedoutPostAll_FullMethodName = "/blog.blog.Query/TimedoutPostAll"
 )
 
 // QueryClient is the client API for Query service.
@@ -38,6 +42,12 @@ type QueryClient interface {
 	// Queries a list of Loan items.
 	Loan(ctx context.Context, in *QueryGetLoanRequest, opts ...grpc.CallOption) (*QueryGetLoanResponse, error)
 	LoanAll(ctx context.Context, in *QueryAllLoanRequest, opts ...grpc.CallOption) (*QueryAllLoanResponse, error)
+	// Queries a list of SentPost items.
+	SentPost(ctx context.Context, in *QueryGetSentPostRequest, opts ...grpc.CallOption) (*QueryGetSentPostResponse, error)
+	SentPostAll(ctx context.Context, in *QueryAllSentPostRequest, opts ...grpc.CallOption) (*QueryAllSentPostResponse, error)
+	// Queries a list of TimedoutPost items.
+	TimedoutPost(ctx context.Context, in *QueryGetTimedoutPostRequest, opts ...grpc.CallOption) (*QueryGetTimedoutPostResponse, error)
+	TimedoutPostAll(ctx context.Context, in *QueryAllTimedoutPostRequest, opts ...grpc.CallOption) (*QueryAllTimedoutPostResponse, error)
 }
 
 type queryClient struct {
@@ -93,6 +103,42 @@ func (c *queryClient) LoanAll(ctx context.Context, in *QueryAllLoanRequest, opts
 	return out, nil
 }
 
+func (c *queryClient) SentPost(ctx context.Context, in *QueryGetSentPostRequest, opts ...grpc.CallOption) (*QueryGetSentPostResponse, error) {
+	out := new(QueryGetSentPostResponse)
+	err := c.cc.Invoke(ctx, Query_SentPost_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) SentPostAll(ctx context.Context, in *QueryAllSentPostRequest, opts ...grpc.CallOption) (*QueryAllSentPostResponse, error) {
+	out := new(QueryAllSentPostResponse)
+	err := c.cc.Invoke(ctx, Query_SentPostAll_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) TimedoutPost(ctx context.Context, in *QueryGetTimedoutPostRequest, opts ...grpc.CallOption) (*QueryGetTimedoutPostResponse, error) {
+	out := new(QueryGetTimedoutPostResponse)
+	err := c.cc.Invoke(ctx, Query_TimedoutPost_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) TimedoutPostAll(ctx context.Context, in *QueryAllTimedoutPostRequest, opts ...grpc.CallOption) (*QueryAllTimedoutPostResponse, error) {
+	out := new(QueryAllTimedoutPostResponse)
+	err := c.cc.Invoke(ctx, Query_TimedoutPostAll_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -105,6 +151,12 @@ type QueryServer interface {
 	// Queries a list of Loan items.
 	Loan(context.Context, *QueryGetLoanRequest) (*QueryGetLoanResponse, error)
 	LoanAll(context.Context, *QueryAllLoanRequest) (*QueryAllLoanResponse, error)
+	// Queries a list of SentPost items.
+	SentPost(context.Context, *QueryGetSentPostRequest) (*QueryGetSentPostResponse, error)
+	SentPostAll(context.Context, *QueryAllSentPostRequest) (*QueryAllSentPostResponse, error)
+	// Queries a list of TimedoutPost items.
+	TimedoutPost(context.Context, *QueryGetTimedoutPostRequest) (*QueryGetTimedoutPostResponse, error)
+	TimedoutPostAll(context.Context, *QueryAllTimedoutPostRequest) (*QueryAllTimedoutPostResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -126,6 +178,18 @@ func (UnimplementedQueryServer) Loan(context.Context, *QueryGetLoanRequest) (*Qu
 }
 func (UnimplementedQueryServer) LoanAll(context.Context, *QueryAllLoanRequest) (*QueryAllLoanResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoanAll not implemented")
+}
+func (UnimplementedQueryServer) SentPost(context.Context, *QueryGetSentPostRequest) (*QueryGetSentPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SentPost not implemented")
+}
+func (UnimplementedQueryServer) SentPostAll(context.Context, *QueryAllSentPostRequest) (*QueryAllSentPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SentPostAll not implemented")
+}
+func (UnimplementedQueryServer) TimedoutPost(context.Context, *QueryGetTimedoutPostRequest) (*QueryGetTimedoutPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TimedoutPost not implemented")
+}
+func (UnimplementedQueryServer) TimedoutPostAll(context.Context, *QueryAllTimedoutPostRequest) (*QueryAllTimedoutPostResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TimedoutPostAll not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -230,6 +294,78 @@ func _Query_LoanAll_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_SentPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetSentPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SentPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_SentPost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SentPost(ctx, req.(*QueryGetSentPostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_SentPostAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllSentPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).SentPostAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_SentPostAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).SentPostAll(ctx, req.(*QueryAllSentPostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_TimedoutPost_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetTimedoutPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).TimedoutPost(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_TimedoutPost_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).TimedoutPost(ctx, req.(*QueryGetTimedoutPostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_TimedoutPostAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllTimedoutPostRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).TimedoutPostAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_TimedoutPostAll_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).TimedoutPostAll(ctx, req.(*QueryAllTimedoutPostRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -256,6 +392,22 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LoanAll",
 			Handler:    _Query_LoanAll_Handler,
+		},
+		{
+			MethodName: "SentPost",
+			Handler:    _Query_SentPost_Handler,
+		},
+		{
+			MethodName: "SentPostAll",
+			Handler:    _Query_SentPostAll_Handler,
+		},
+		{
+			MethodName: "TimedoutPost",
+			Handler:    _Query_TimedoutPost_Handler,
+		},
+		{
+			MethodName: "TimedoutPostAll",
+			Handler:    _Query_TimedoutPostAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

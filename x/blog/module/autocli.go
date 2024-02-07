@@ -39,6 +39,28 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Shows a loan by id",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
+				{
+					RpcMethod: "SentPostAll",
+					Use:       "list-sent-post",
+					Short:     "List all sentPost",
+				},
+				{
+					RpcMethod:      "SentPost",
+					Use:            "show-sent-post [id]",
+					Short:          "Shows a sentPost by id",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
+				{
+					RpcMethod: "TimedoutPostAll",
+					Use:       "list-timedout-post",
+					Short:     "List all timedoutPost",
+				},
+				{
+					RpcMethod:      "TimedoutPost",
+					Use:            "show-timedout-post [id]",
+					Short:          "Shows a timedoutPost by id",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},

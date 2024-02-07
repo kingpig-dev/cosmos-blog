@@ -116,13 +116,119 @@ func (x *_GenesisState_4_list) IsValid() bool {
 	return x.list != nil
 }
 
+var _ protoreflect.List = (*_GenesisState_6_list)(nil)
+
+type _GenesisState_6_list struct {
+	list *[]*SentPost
+}
+
+func (x *_GenesisState_6_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_6_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_6_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*SentPost)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_6_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*SentPost)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_6_list) AppendMutable() protoreflect.Value {
+	v := new(SentPost)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_6_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_6_list) NewElement() protoreflect.Value {
+	v := new(SentPost)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_6_list) IsValid() bool {
+	return x.list != nil
+}
+
+var _ protoreflect.List = (*_GenesisState_8_list)(nil)
+
+type _GenesisState_8_list struct {
+	list *[]*TimedoutPost
+}
+
+func (x *_GenesisState_8_list) Len() int {
+	if x.list == nil {
+		return 0
+	}
+	return len(*x.list)
+}
+
+func (x *_GenesisState_8_list) Get(i int) protoreflect.Value {
+	return protoreflect.ValueOfMessage((*x.list)[i].ProtoReflect())
+}
+
+func (x *_GenesisState_8_list) Set(i int, value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*TimedoutPost)
+	(*x.list)[i] = concreteValue
+}
+
+func (x *_GenesisState_8_list) Append(value protoreflect.Value) {
+	valueUnwrapped := value.Message()
+	concreteValue := valueUnwrapped.Interface().(*TimedoutPost)
+	*x.list = append(*x.list, concreteValue)
+}
+
+func (x *_GenesisState_8_list) AppendMutable() protoreflect.Value {
+	v := new(TimedoutPost)
+	*x.list = append(*x.list, v)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_8_list) Truncate(n int) {
+	for i := n; i < len(*x.list); i++ {
+		(*x.list)[i] = nil
+	}
+	*x.list = (*x.list)[:n]
+}
+
+func (x *_GenesisState_8_list) NewElement() protoreflect.Value {
+	v := new(TimedoutPost)
+	return protoreflect.ValueOfMessage(v.ProtoReflect())
+}
+
+func (x *_GenesisState_8_list) IsValid() bool {
+	return x.list != nil
+}
+
 var (
-	md_GenesisState           protoreflect.MessageDescriptor
-	fd_GenesisState_params    protoreflect.FieldDescriptor
-	fd_GenesisState_postList  protoreflect.FieldDescriptor
-	fd_GenesisState_postCount protoreflect.FieldDescriptor
-	fd_GenesisState_loanList  protoreflect.FieldDescriptor
-	fd_GenesisState_loanCount protoreflect.FieldDescriptor
+	md_GenesisState                   protoreflect.MessageDescriptor
+	fd_GenesisState_params            protoreflect.FieldDescriptor
+	fd_GenesisState_postList          protoreflect.FieldDescriptor
+	fd_GenesisState_postCount         protoreflect.FieldDescriptor
+	fd_GenesisState_loanList          protoreflect.FieldDescriptor
+	fd_GenesisState_loanCount         protoreflect.FieldDescriptor
+	fd_GenesisState_sentPostList      protoreflect.FieldDescriptor
+	fd_GenesisState_sentPostCount     protoreflect.FieldDescriptor
+	fd_GenesisState_timedoutPostList  protoreflect.FieldDescriptor
+	fd_GenesisState_timedoutPostCount protoreflect.FieldDescriptor
 )
 
 func init() {
@@ -133,6 +239,10 @@ func init() {
 	fd_GenesisState_postCount = md_GenesisState.Fields().ByName("postCount")
 	fd_GenesisState_loanList = md_GenesisState.Fields().ByName("loanList")
 	fd_GenesisState_loanCount = md_GenesisState.Fields().ByName("loanCount")
+	fd_GenesisState_sentPostList = md_GenesisState.Fields().ByName("sentPostList")
+	fd_GenesisState_sentPostCount = md_GenesisState.Fields().ByName("sentPostCount")
+	fd_GenesisState_timedoutPostList = md_GenesisState.Fields().ByName("timedoutPostList")
+	fd_GenesisState_timedoutPostCount = md_GenesisState.Fields().ByName("timedoutPostCount")
 }
 
 var _ protoreflect.Message = (*fastReflection_GenesisState)(nil)
@@ -230,6 +340,30 @@ func (x *fastReflection_GenesisState) Range(f func(protoreflect.FieldDescriptor,
 			return
 		}
 	}
+	if len(x.SentPostList) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_6_list{list: &x.SentPostList})
+		if !f(fd_GenesisState_sentPostList, value) {
+			return
+		}
+	}
+	if x.SentPostCount != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.SentPostCount)
+		if !f(fd_GenesisState_sentPostCount, value) {
+			return
+		}
+	}
+	if len(x.TimedoutPostList) != 0 {
+		value := protoreflect.ValueOfList(&_GenesisState_8_list{list: &x.TimedoutPostList})
+		if !f(fd_GenesisState_timedoutPostList, value) {
+			return
+		}
+	}
+	if x.TimedoutPostCount != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.TimedoutPostCount)
+		if !f(fd_GenesisState_timedoutPostCount, value) {
+			return
+		}
+	}
 }
 
 // Has reports whether a field is populated.
@@ -255,6 +389,14 @@ func (x *fastReflection_GenesisState) Has(fd protoreflect.FieldDescriptor) bool 
 		return len(x.LoanList) != 0
 	case "blog.blog.GenesisState.loanCount":
 		return x.LoanCount != uint64(0)
+	case "blog.blog.GenesisState.sentPostList":
+		return len(x.SentPostList) != 0
+	case "blog.blog.GenesisState.sentPostCount":
+		return x.SentPostCount != uint64(0)
+	case "blog.blog.GenesisState.timedoutPostList":
+		return len(x.TimedoutPostList) != 0
+	case "blog.blog.GenesisState.timedoutPostCount":
+		return x.TimedoutPostCount != uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.GenesisState"))
@@ -281,6 +423,14 @@ func (x *fastReflection_GenesisState) Clear(fd protoreflect.FieldDescriptor) {
 		x.LoanList = nil
 	case "blog.blog.GenesisState.loanCount":
 		x.LoanCount = uint64(0)
+	case "blog.blog.GenesisState.sentPostList":
+		x.SentPostList = nil
+	case "blog.blog.GenesisState.sentPostCount":
+		x.SentPostCount = uint64(0)
+	case "blog.blog.GenesisState.timedoutPostList":
+		x.TimedoutPostList = nil
+	case "blog.blog.GenesisState.timedoutPostCount":
+		x.TimedoutPostCount = uint64(0)
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.GenesisState"))
@@ -318,6 +468,24 @@ func (x *fastReflection_GenesisState) Get(descriptor protoreflect.FieldDescripto
 	case "blog.blog.GenesisState.loanCount":
 		value := x.LoanCount
 		return protoreflect.ValueOfUint64(value)
+	case "blog.blog.GenesisState.sentPostList":
+		if len(x.SentPostList) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_6_list{})
+		}
+		listValue := &_GenesisState_6_list{list: &x.SentPostList}
+		return protoreflect.ValueOfList(listValue)
+	case "blog.blog.GenesisState.sentPostCount":
+		value := x.SentPostCount
+		return protoreflect.ValueOfUint64(value)
+	case "blog.blog.GenesisState.timedoutPostList":
+		if len(x.TimedoutPostList) == 0 {
+			return protoreflect.ValueOfList(&_GenesisState_8_list{})
+		}
+		listValue := &_GenesisState_8_list{list: &x.TimedoutPostList}
+		return protoreflect.ValueOfList(listValue)
+	case "blog.blog.GenesisState.timedoutPostCount":
+		value := x.TimedoutPostCount
+		return protoreflect.ValueOfUint64(value)
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.GenesisState"))
@@ -352,6 +520,18 @@ func (x *fastReflection_GenesisState) Set(fd protoreflect.FieldDescriptor, value
 		x.LoanList = *clv.list
 	case "blog.blog.GenesisState.loanCount":
 		x.LoanCount = value.Uint()
+	case "blog.blog.GenesisState.sentPostList":
+		lv := value.List()
+		clv := lv.(*_GenesisState_6_list)
+		x.SentPostList = *clv.list
+	case "blog.blog.GenesisState.sentPostCount":
+		x.SentPostCount = value.Uint()
+	case "blog.blog.GenesisState.timedoutPostList":
+		lv := value.List()
+		clv := lv.(*_GenesisState_8_list)
+		x.TimedoutPostList = *clv.list
+	case "blog.blog.GenesisState.timedoutPostCount":
+		x.TimedoutPostCount = value.Uint()
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.GenesisState"))
@@ -389,10 +569,26 @@ func (x *fastReflection_GenesisState) Mutable(fd protoreflect.FieldDescriptor) p
 		}
 		value := &_GenesisState_4_list{list: &x.LoanList}
 		return protoreflect.ValueOfList(value)
+	case "blog.blog.GenesisState.sentPostList":
+		if x.SentPostList == nil {
+			x.SentPostList = []*SentPost{}
+		}
+		value := &_GenesisState_6_list{list: &x.SentPostList}
+		return protoreflect.ValueOfList(value)
+	case "blog.blog.GenesisState.timedoutPostList":
+		if x.TimedoutPostList == nil {
+			x.TimedoutPostList = []*TimedoutPost{}
+		}
+		value := &_GenesisState_8_list{list: &x.TimedoutPostList}
+		return protoreflect.ValueOfList(value)
 	case "blog.blog.GenesisState.postCount":
 		panic(fmt.Errorf("field postCount of message blog.blog.GenesisState is not mutable"))
 	case "blog.blog.GenesisState.loanCount":
 		panic(fmt.Errorf("field loanCount of message blog.blog.GenesisState is not mutable"))
+	case "blog.blog.GenesisState.sentPostCount":
+		panic(fmt.Errorf("field sentPostCount of message blog.blog.GenesisState is not mutable"))
+	case "blog.blog.GenesisState.timedoutPostCount":
+		panic(fmt.Errorf("field timedoutPostCount of message blog.blog.GenesisState is not mutable"))
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: blog.blog.GenesisState"))
@@ -418,6 +614,16 @@ func (x *fastReflection_GenesisState) NewField(fd protoreflect.FieldDescriptor) 
 		list := []*Loan{}
 		return protoreflect.ValueOfList(&_GenesisState_4_list{list: &list})
 	case "blog.blog.GenesisState.loanCount":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "blog.blog.GenesisState.sentPostList":
+		list := []*SentPost{}
+		return protoreflect.ValueOfList(&_GenesisState_6_list{list: &list})
+	case "blog.blog.GenesisState.sentPostCount":
+		return protoreflect.ValueOfUint64(uint64(0))
+	case "blog.blog.GenesisState.timedoutPostList":
+		list := []*TimedoutPost{}
+		return protoreflect.ValueOfList(&_GenesisState_8_list{list: &list})
+	case "blog.blog.GenesisState.timedoutPostCount":
 		return protoreflect.ValueOfUint64(uint64(0))
 	default:
 		if fd.IsExtension() {
@@ -510,6 +716,24 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 		if x.LoanCount != 0 {
 			n += 1 + runtime.Sov(uint64(x.LoanCount))
 		}
+		if len(x.SentPostList) > 0 {
+			for _, e := range x.SentPostList {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.SentPostCount != 0 {
+			n += 1 + runtime.Sov(uint64(x.SentPostCount))
+		}
+		if len(x.TimedoutPostList) > 0 {
+			for _, e := range x.TimedoutPostList {
+				l = options.Size(e)
+				n += 1 + l + runtime.Sov(uint64(l))
+			}
+		}
+		if x.TimedoutPostCount != 0 {
+			n += 1 + runtime.Sov(uint64(x.TimedoutPostCount))
+		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
 		}
@@ -538,6 +762,48 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 		if x.unknownFields != nil {
 			i -= len(x.unknownFields)
 			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.TimedoutPostCount != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.TimedoutPostCount))
+			i--
+			dAtA[i] = 0x48
+		}
+		if len(x.TimedoutPostList) > 0 {
+			for iNdEx := len(x.TimedoutPostList) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.TimedoutPostList[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x42
+			}
+		}
+		if x.SentPostCount != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.SentPostCount))
+			i--
+			dAtA[i] = 0x38
+		}
+		if len(x.SentPostList) > 0 {
+			for iNdEx := len(x.SentPostList) - 1; iNdEx >= 0; iNdEx-- {
+				encoded, err := options.Marshal(x.SentPostList[iNdEx])
+				if err != nil {
+					return protoiface.MarshalOutput{
+						NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+						Buf:               input.Buf,
+					}, err
+				}
+				i -= len(encoded)
+				copy(dAtA[i:], encoded)
+				i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+				i--
+				dAtA[i] = 0x32
+			}
 		}
 		if x.LoanCount != 0 {
 			i = runtime.EncodeVarint(dAtA, i, uint64(x.LoanCount))
@@ -786,6 +1052,112 @@ func (x *fastReflection_GenesisState) ProtoMethods() *protoiface.Methods {
 						break
 					}
 				}
+			case 6:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SentPostList", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.SentPostList = append(x.SentPostList, &SentPost{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.SentPostList[len(x.SentPostList)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 7:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field SentPostCount", wireType)
+				}
+				x.SentPostCount = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.SentPostCount |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			case 8:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field TimedoutPostList", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.TimedoutPostList = append(x.TimedoutPostList, &TimedoutPost{})
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], x.TimedoutPostList[len(x.TimedoutPostList)-1]); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				iNdEx = postIndex
+			case 9:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field TimedoutPostCount", wireType)
+				}
+				x.TimedoutPostCount = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.TimedoutPostCount |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
 			default:
 				iNdEx = preIndex
 				skippy, err := runtime.Skip(dAtA[iNdEx:])
@@ -841,11 +1213,15 @@ type GenesisState struct {
 	unknownFields protoimpl.UnknownFields
 
 	// params defines all the parameters of the module.
-	Params    *Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
-	PostList  []*Post `protobuf:"bytes,2,rep,name=postList,proto3" json:"postList,omitempty"`
-	PostCount uint64  `protobuf:"varint,3,opt,name=postCount,proto3" json:"postCount,omitempty"`
-	LoanList  []*Loan `protobuf:"bytes,4,rep,name=loanList,proto3" json:"loanList,omitempty"`
-	LoanCount uint64  `protobuf:"varint,5,opt,name=loanCount,proto3" json:"loanCount,omitempty"`
+	Params            *Params         `protobuf:"bytes,1,opt,name=params,proto3" json:"params,omitempty"`
+	PostList          []*Post         `protobuf:"bytes,2,rep,name=postList,proto3" json:"postList,omitempty"`
+	PostCount         uint64          `protobuf:"varint,3,opt,name=postCount,proto3" json:"postCount,omitempty"`
+	LoanList          []*Loan         `protobuf:"bytes,4,rep,name=loanList,proto3" json:"loanList,omitempty"`
+	LoanCount         uint64          `protobuf:"varint,5,opt,name=loanCount,proto3" json:"loanCount,omitempty"`
+	SentPostList      []*SentPost     `protobuf:"bytes,6,rep,name=sentPostList,proto3" json:"sentPostList,omitempty"`
+	SentPostCount     uint64          `protobuf:"varint,7,opt,name=sentPostCount,proto3" json:"sentPostCount,omitempty"`
+	TimedoutPostList  []*TimedoutPost `protobuf:"bytes,8,rep,name=timedoutPostList,proto3" json:"timedoutPostList,omitempty"`
+	TimedoutPostCount uint64          `protobuf:"varint,9,opt,name=timedoutPostCount,proto3" json:"timedoutPostCount,omitempty"`
 }
 
 func (x *GenesisState) Reset() {
@@ -903,6 +1279,34 @@ func (x *GenesisState) GetLoanCount() uint64 {
 	return 0
 }
 
+func (x *GenesisState) GetSentPostList() []*SentPost {
+	if x != nil {
+		return x.SentPostList
+	}
+	return nil
+}
+
+func (x *GenesisState) GetSentPostCount() uint64 {
+	if x != nil {
+		return x.SentPostCount
+	}
+	return 0
+}
+
+func (x *GenesisState) GetTimedoutPostList() []*TimedoutPost {
+	if x != nil {
+		return x.TimedoutPostList
+	}
+	return nil
+}
+
+func (x *GenesisState) GetTimedoutPostCount() uint64 {
+	if x != nil {
+		return x.TimedoutPostCount
+	}
+	return 0
+}
+
 var File_blog_blog_genesis_proto protoreflect.FileDescriptor
 
 var file_blog_blog_genesis_proto_rawDesc = []byte{
@@ -915,30 +1319,47 @@ var file_blog_blog_genesis_proto_rawDesc = []byte{
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67,
 	0x2f, 0x70, 0x6f, 0x73, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x14, 0x62, 0x6c, 0x6f,
 	0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x6c, 0x6f, 0x61, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x22, 0xe6, 0x01, 0x0a, 0x0c, 0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x53, 0x74, 0x61,
-	0x74, 0x65, 0x12, 0x34, 0x0a, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x11, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50,
-	0x61, 0x72, 0x61, 0x6d, 0x73, 0x42, 0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8, 0xe7, 0xb0, 0x2a, 0x01,
-	0x52, 0x06, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x31, 0x0a, 0x08, 0x70, 0x6f, 0x73, 0x74,
-	0x4c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x62, 0x6c, 0x6f,
-	0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x6f, 0x73, 0x74, 0x42, 0x04, 0xc8, 0xde, 0x1f,
-	0x00, 0x52, 0x08, 0x70, 0x6f, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x70,
-	0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09,
-	0x70, 0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x31, 0x0a, 0x08, 0x6c, 0x6f, 0x61,
-	0x6e, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x62, 0x6c,
-	0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4c, 0x6f, 0x61, 0x6e, 0x42, 0x04, 0xc8, 0xde,
-	0x1f, 0x00, 0x52, 0x08, 0x6c, 0x6f, 0x61, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09,
-	0x6c, 0x6f, 0x61, 0x6e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52,
-	0x09, 0x6c, 0x6f, 0x61, 0x6e, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x42, 0x7e, 0x0a, 0x0d, 0x63, 0x6f,
-	0x6d, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x42, 0x0c, 0x47, 0x65, 0x6e,
-	0x65, 0x73, 0x69, 0x73, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x1a, 0x63, 0x6f, 0x73,
-	0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x62, 0x6c,
-	0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2, 0x02, 0x03, 0x42, 0x42, 0x58, 0xaa, 0x02, 0x09,
-	0x42, 0x6c, 0x6f, 0x67, 0x2e, 0x42, 0x6c, 0x6f, 0x67, 0xca, 0x02, 0x09, 0x42, 0x6c, 0x6f, 0x67,
-	0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2, 0x02, 0x15, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x42, 0x6c, 0x6f,
-	0x67, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0a,
-	0x42, 0x6c, 0x6f, 0x67, 0x3a, 0x3a, 0x42, 0x6c, 0x6f, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x6f, 0x1a, 0x19, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x73, 0x65, 0x6e,
+	0x74, 0x5f, 0x70, 0x6f, 0x73, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1d, 0x62, 0x6c,
+	0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x64, 0x6f, 0x75, 0x74,
+	0x5f, 0x70, 0x6f, 0x73, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xc4, 0x03, 0x0a, 0x0c,
+	0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x34, 0x0a, 0x06,
+	0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e, 0x62,
+	0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x42,
+	0x09, 0xc8, 0xde, 0x1f, 0x00, 0xa8, 0xe7, 0xb0, 0x2a, 0x01, 0x52, 0x06, 0x70, 0x61, 0x72, 0x61,
+	0x6d, 0x73, 0x12, 0x31, 0x0a, 0x08, 0x70, 0x6f, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x02,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67,
+	0x2e, 0x50, 0x6f, 0x73, 0x74, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x08, 0x70, 0x6f, 0x73,
+	0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75,
+	0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x70, 0x6f, 0x73, 0x74, 0x43, 0x6f,
+	0x75, 0x6e, 0x74, 0x12, 0x31, 0x0a, 0x08, 0x6c, 0x6f, 0x61, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x18,
+	0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x4c, 0x6f, 0x61, 0x6e, 0x42, 0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x08, 0x6c, 0x6f,
+	0x61, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x6c, 0x6f, 0x61, 0x6e, 0x43, 0x6f,
+	0x75, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x04, 0x52, 0x09, 0x6c, 0x6f, 0x61, 0x6e, 0x43,
+	0x6f, 0x75, 0x6e, 0x74, 0x12, 0x3d, 0x0a, 0x0c, 0x73, 0x65, 0x6e, 0x74, 0x50, 0x6f, 0x73, 0x74,
+	0x4c, 0x69, 0x73, 0x74, 0x18, 0x06, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x62, 0x6c, 0x6f,
+	0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x53, 0x65, 0x6e, 0x74, 0x50, 0x6f, 0x73, 0x74, 0x42,
+	0x04, 0xc8, 0xde, 0x1f, 0x00, 0x52, 0x0c, 0x73, 0x65, 0x6e, 0x74, 0x50, 0x6f, 0x73, 0x74, 0x4c,
+	0x69, 0x73, 0x74, 0x12, 0x24, 0x0a, 0x0d, 0x73, 0x65, 0x6e, 0x74, 0x50, 0x6f, 0x73, 0x74, 0x43,
+	0x6f, 0x75, 0x6e, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0d, 0x73, 0x65, 0x6e, 0x74,
+	0x50, 0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x49, 0x0a, 0x10, 0x74, 0x69, 0x6d,
+	0x65, 0x64, 0x6f, 0x75, 0x74, 0x50, 0x6f, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x08, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e,
+	0x54, 0x69, 0x6d, 0x65, 0x64, 0x6f, 0x75, 0x74, 0x50, 0x6f, 0x73, 0x74, 0x42, 0x04, 0xc8, 0xde,
+	0x1f, 0x00, 0x52, 0x10, 0x74, 0x69, 0x6d, 0x65, 0x64, 0x6f, 0x75, 0x74, 0x50, 0x6f, 0x73, 0x74,
+	0x4c, 0x69, 0x73, 0x74, 0x12, 0x2c, 0x0a, 0x11, 0x74, 0x69, 0x6d, 0x65, 0x64, 0x6f, 0x75, 0x74,
+	0x50, 0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75, 0x6e, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x11, 0x74, 0x69, 0x6d, 0x65, 0x64, 0x6f, 0x75, 0x74, 0x50, 0x6f, 0x73, 0x74, 0x43, 0x6f, 0x75,
+	0x6e, 0x74, 0x42, 0x7e, 0x0a, 0x0d, 0x63, 0x6f, 0x6d, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x62,
+	0x6c, 0x6f, 0x67, 0x42, 0x0c, 0x47, 0x65, 0x6e, 0x65, 0x73, 0x69, 0x73, 0x50, 0x72, 0x6f, 0x74,
+	0x6f, 0x50, 0x01, 0x5a, 0x1a, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69,
+	0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2,
+	0x02, 0x03, 0x42, 0x42, 0x58, 0xaa, 0x02, 0x09, 0x42, 0x6c, 0x6f, 0x67, 0x2e, 0x42, 0x6c, 0x6f,
+	0x67, 0xca, 0x02, 0x09, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2, 0x02, 0x15,
+	0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74,
+	0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0a, 0x42, 0x6c, 0x6f, 0x67, 0x3a, 0x3a, 0x42, 0x6c,
+	0x6f, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -959,16 +1380,20 @@ var file_blog_blog_genesis_proto_goTypes = []interface{}{
 	(*Params)(nil),       // 1: blog.blog.Params
 	(*Post)(nil),         // 2: blog.blog.Post
 	(*Loan)(nil),         // 3: blog.blog.Loan
+	(*SentPost)(nil),     // 4: blog.blog.SentPost
+	(*TimedoutPost)(nil), // 5: blog.blog.TimedoutPost
 }
 var file_blog_blog_genesis_proto_depIdxs = []int32{
 	1, // 0: blog.blog.GenesisState.params:type_name -> blog.blog.Params
 	2, // 1: blog.blog.GenesisState.postList:type_name -> blog.blog.Post
 	3, // 2: blog.blog.GenesisState.loanList:type_name -> blog.blog.Loan
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	4, // 3: blog.blog.GenesisState.sentPostList:type_name -> blog.blog.SentPost
+	5, // 4: blog.blog.GenesisState.timedoutPostList:type_name -> blog.blog.TimedoutPost
+	5, // [5:5] is the sub-list for method output_type
+	5, // [5:5] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_blog_blog_genesis_proto_init() }
@@ -979,6 +1404,8 @@ func file_blog_blog_genesis_proto_init() {
 	file_blog_blog_params_proto_init()
 	file_blog_blog_post_proto_init()
 	file_blog_blog_loan_proto_init()
+	file_blog_blog_sent_post_proto_init()
+	file_blog_blog_timedout_post_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_blog_blog_genesis_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GenesisState); i {

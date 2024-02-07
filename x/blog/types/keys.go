@@ -28,3 +28,13 @@ const (
 	LoanKey      = "Loan/value/"
 	LoanCountKey = "Loan/count/"
 )
+
+const (
+	SentPostKey      = "SentPost/value/"
+	SentPostCountKey = "SentPost/count/"
+)
+
+const (
+	TimedoutPostKey      = "TimedoutPost/value/"
+	TimedoutPostCountKey = "TimedoutPost/count/"
+)

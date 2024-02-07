@@ -9,6 +9,8 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "blog/blog/params.proto";
 import "blog/blog/post.proto";
 import "blog/blog/loan.proto";
+import "blog/blog/sent_post.proto";
+import "blog/blog/timedout_post.proto";
 
 option go_package = "blog/x/blog/types";
 
@@ -38,6 +40,26 @@ service Query {
   }
   rpc LoanAll (QueryAllLoanRequest) returns (QueryAllLoanResponse) {
     option (google.api.http).get = "/blog/blog/loan";
+  
+  }
+  
+  // Queries a list of SentPost items.
+  rpc SentPost    (QueryGetSentPostRequest) returns (QueryGetSentPostResponse) {
+    option (google.api.http).get = "/blog/blog/sent_post/{id}";
+  
+  }
+  rpc SentPostAll (QueryAllSentPostRequest) returns (QueryAllSentPostResponse) {
+    option (google.api.http).get = "/blog/blog/sent_post";
+  
+  }
+  
+  // Queries a list of TimedoutPost items.
+  rpc TimedoutPost    (QueryGetTimedoutPostRequest) returns (QueryGetTimedoutPostResponse) {
+    option (google.api.http).get = "/blog/blog/timedout_post/{id}";
+  
+  }
+  rpc TimedoutPostAll (QueryAllTimedoutPostRequest) returns (QueryAllTimedoutPostResponse) {
+    option (google.api.http).get = "/blog/blog/timedout_post";
   
   }
 }
@@ -83,5 +105,39 @@ message QueryAllLoanRequest {
 message QueryAllLoanResponse {
   repeated Loan                                   Loan       = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSentPostRequest {
+  uint64 id = 1;
+}
+
+message QueryGetSentPostResponse {
+  SentPost SentPost = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSentPostRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSentPostResponse {
+  repeated SentPost                               SentPost   = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetTimedoutPostRequest {
+  uint64 id = 1;
+}
+
+message QueryGetTimedoutPostResponse {
+  TimedoutPost TimedoutPost = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllTimedoutPostRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTimedoutPostResponse {
+  repeated TimedoutPost                           TimedoutPost = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination   = 2;
 }
 
